@@ -1,0 +1,8 @@
+# Postgresql basic commands
+
+- Create a database
+
+```sql
+CREATE DATABASE courses;
+```
+

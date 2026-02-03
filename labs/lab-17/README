@@ -1,0 +1,237 @@
+## 📦 Import/Export & Backup
+
+Efficiently move data in/out of PostgreSQL and safeguard it with robust backup strategies.
+
+---
+
+## 🚚 COPY (Bulk Transfer)
+
+Fast import/export between files and tables.
+
+```sql
+-- Export table to CSV with header
+COPY table_name TO '/path/to/file.csv' WITH CSV HEADER;
+
+-- Import CSV into table
+COPY table_name FROM '/path/to/file.csv' WITH CSV HEADER;
+
+-- Custom delimiter and NULL representation
+COPY employees TO '/tmp/employees.txt'
+WITH DELIMITER '|' NULL 'N/A' CSV HEADER;
+
+-- Import specific columns
+COPY employees(first_name, last_name, email)
+FROM '/tmp/new_employees.csv' WITH CSV HEADER;
+
+-- Export a query result
+COPY (SELECT * FROM employees WHERE department = 'IT')
+TO '/tmp/it_employees.csv' WITH CSV HEADER;
+```
+
+Handling CSV specifics:
+
+```sql
+-- Custom quote and delimiter
+COPY customers TO '/tmp/customers.csv'
+WITH CSV HEADER DELIMITER ';' QUOTE '"';
+
+-- Force quote a date column
+COPY orders TO '/tmp/orders.csv' WITH CSV HEADER FORCE_QUOTE (order_date);
+
+-- Import with encoding
+COPY products FROM '/tmp/products_utf8.csv' WITH CSV HEADER ENCODING 'UTF8';
+
+-- Embedded commas/quotes
+COPY customer_feedback TO '/tmp/feedback.csv'
+WITH CSV HEADER DELIMITER ',' QUOTE '"' ESCAPE '"';
+
+-- Custom NULL string
+COPY sales_data FROM '/tmp/sales.csv' WITH CSV HEADER NULL 'NULL';
+```
+
+---
+
+## 💾 Backup & Restore (pg_dump / pg_restore)
+
+```bash
+# Basic SQL backup
+pg_dump -h localhost -U username -d database_name > backup.sql
+
+# Recommended: compressed custom format
+pg_dump -h localhost -U username -d database_name -Fc > backup.dump
+
+# Specific tables
+pg_dump -h localhost -U username -d database_name -t employees -t departments > tables_backup.sql
+
+# Verbose output
+pg_dump -h localhost -U username -d database_name -Fc -v > backup.dump
+
+# Restore custom format
+pg_restore -h localhost -U username -d target_database backup.dump
+
+# Create and restore to new database
+createdb new_database
+pg_restore -h localhost -U username -d new_database backup.dump
+
+# Restore specific table
+pg_restore -h localhost -U username -d database_name -t employees backup.dump
+
+# Parallel restore
+pg_restore -h localhost -U username -d database_name -j 4 backup.dump
+
+# Schema-only
+pg_dump -h localhost -U username -d database_name -s > schema_only.sql
+
+# Data-only
+pg_dump -h localhost -U username -d database_name -a > data_only.sql
+
+# Exclude tables
+pg_dump -h localhost -U username -d database_name -T log_table -T temp_data > backup_without_logs.sql
+
+# Full cluster backup
+pg_dumpall -h localhost -U postgres > full_cluster_backup.sql
+```
+
+Full backup examples:
+
+```bash
+# Full backup with ownership preserved
+pg_dump -h localhost -U username -d database_name -Fc -O > backup_with_ownership.dump
+
+# Daily backup script (rotate 7 days)
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR="/backups/postgresql"; DB_NAME="production_db"
+pg_dump -h localhost -U backup_user -d "$DB_NAME" -Fc > "$BACKUP_DIR/${DB_NAME}_${DATE}.dump"
+find "$BACKUP_DIR" -name "${DB_NAME}_*.dump" -mtime +7 -delete
+
+# Validate backup
+pg_restore --list backup.dump
+createdb test_restore && pg_restore -d test_restore backup.dump
+```
+
+---
+
+## 🧱 Incremental Backups (WAL) & Base Backups
+
+Enable WAL archiving and create base backups.
+
+```conf
+wal_level = replica
+archive_mode = on
+archive_command = 'cp %p /backup/wal/%f'
+```
+
+```bash
+# Base backup
+pg_basebackup -h localhost -U replication_user -D /backup/base -Ft -z -P
+
+# Base backup including WAL
+pg_basebackup -h localhost -U replication_user -D /backup/base -x -P
+
+# Force WAL segment switch and cleanup
+psql -c "SELECT pg_switch_wal();"
+pg_archivecleanup /backup/wal 000000010000000000000010
+```
+
+---
+
+## 🕰️ Point-in-Time Recovery (PITR)
+
+Restore to a specific time using base backup + WAL.
+
+```bash
+sudo systemctl stop postgresql
+rm -rf /var/lib/postgresql/data/*
+tar -xf /backup/base/base.tar -C /var/lib/postgresql/data/
+cat > /var/lib/postgresql/data/recovery.signal << EOF
+restore_command = 'cp /backup/wal/%f %p'
+recovery_target_time = '2024-01-15 14:30:00'
+EOF
+sudo systemctl start postgresql
+```
+
+Other targets:
+
+```conf
+recovery_target_xid  = '12345'
+recovery_target_name = 'before_data_migration'
+```
+
+```sql
+SELECT pg_create_restore_point('before_data_migration');
+```
+
+---
+
+## 🔁 Data Migration Strategies
+
+### 1) Dump & Restore
+
+```bash
+pg_dump -h source_host -U username -d source_db -Fc > migration.dump
+pg_restore -h target_host -U username -d target_db migration.dump
+```
+
+### 2) Logical Replication
+
+```sql
+-- Source
+CREATE PUBLICATION migration_pub FOR ALL TABLES;
+-- Target
+CREATE SUBSCRIPTION migration_sub
+CONNECTION 'host=source_host dbname=source_db user=replication_user'
+PUBLICATION migration_pub;
+```
+
+### 3) Physical Replication
+
+```conf
+wal_level = replica
+max_wal_senders = 3
+```
+
+```bash
+pg_basebackup -h primary_host -D /var/lib/postgresql/standby -U replication_user -R -P
+```
+
+### 4) ETL Pipeline
+
+```sql
+-- Stage, transform, merge
+CREATE TABLE staging_customers AS SELECT * FROM customers WHERE 1=0;
+COPY (SELECT * FROM customers LIMIT 10000 OFFSET 0)
+TO '/tmp/customers_batch_1.csv' WITH CSV HEADER;
+COPY staging_customers FROM '/tmp/customers_batch_1.csv' WITH CSV HEADER;
+INSERT INTO target_customers
+SELECT * FROM staging_customers
+ON CONFLICT (customer_id) DO UPDATE SET ...;
+```
+
+Best practices:
+
+```sql
+-- Pre-migration checklist
+SELECT COUNT(*) FROM source_table;
+
+-- Trial run on small table
+pg_dump -h source -U user -d db -t small_table | psql -h target -U user -d db
+
+-- Monitor progress
+SELECT pid, usename, application_name, client_addr, state
+FROM pg_stat_activity WHERE application_name = 'pg_dump';
+
+-- Validate
+SELECT COUNT(*) FROM target_table;
+```
+
+Large tables:
+
+```sql
+-- Partition for easier migration
+CREATE TABLE large_table_2023 PARTITION OF large_table
+FOR VALUES FROM ('2023-01-01') TO ('2024-01-01');
+```
+
+```bash
+pg_dump -h source -U user -d db -t large_table_2023 | psql -h target -U user -d db
+```
