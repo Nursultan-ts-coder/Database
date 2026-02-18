@@ -1,34 +1,31 @@
-CREATE TABLE students (
-id SERIAL PRIMARY KEY,
-name VARCHAR(100));
+-- Create students table
+create table students (
+id serial primary key,
+name varchar(100));
 
-INSERT INTO students(name) VALUES('Alice');
-INSERT INTO students(name) VALUES('Bob');
-INSERT INTO students(name) VALUES('Charlie');
-INSERT INTO students(name) VALUES('Diana');
-INSERT INTO students(name) VALUES('Eve');
-INSERT INTO students(name) VALUES('Frank');
-INSERT INTO students(name) VALUES('Grace');
+-- Insert some students
+insert into students(name) values('Alice');
+insert into students(name) values('Bob');
+insert into students(name) values('Charlie');
+insert into students(name) values('Diana');
+insert into students(name) values('Eve');
+insert into students(name) values('Frank');
+insert into students(name) values('Grace');
+insert into students(name) values('Nursultan Lukmanov');
 
-SELECT * FROM students;
-
-select * from students where name = 'Grace';
-
-select * from students order by name;
-
-select * from students order by name limit 3;
+-- Query all students
+select * from students;
 
 -- Alter table to add age department and email
-
 alter table students
-add column email VARCHAR(100),
-add column department INT;
+add column email varchar(100),
+add column department int;
 
 -- Alter table to add gpa department and email
 
 alter table students
-add column gpa DECIMAL(3,2),
-add column graduation_year INT;
+add column gpa decimal(3,2),
+add column graduation_year int;
 
 -- check table students if new columns are added
 select * from students;
@@ -49,31 +46,8 @@ add constraint email_unique unique(email);
 alter table students
 rename column department to department_id;
 
+-- add foreign key constraint for department_id
 alter table students
 add constraint fk_student_department
     foreign key(department_id)
     references departments(id);
-
-
-
-CREATE TABLE students_raw (
-    id INT PRIMARY KEY,
-    name TEXT,
-    age INT,
-    email TEXT,
-    department TEXT,
-    gpa DECIMAL(3,2),
-    graduation_year INT
-);
-
-COPY students_raw(id, name, age, email, department, gpa, graduation_year)
-FROM 'students_raw.csv'
-DELIMITER ','
-CSV HEADER;
-
-select * from students_raw;
-
-
-INSERT INTO students (id, name, email, gpa, graduation_year)
-SELECT id, name, email, gpa, graduation_year
-FROM students_raw;

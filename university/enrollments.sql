@@ -1,31 +1,43 @@
-CREATE TABLE enrollments(
-id SERIAL PRIMARY KEY,
-studentId INT,
-courseID INT
+-- Create enrollments table
+create table enrollments(
+id serial primary key,
+student_id int,
+course_id int
 );
 
-INSERT INTO enrollments(studentId, courseId) VALUES(3,1);
-INSERT INTO enrollments(studentId, courseId) VALUES(3,4);
-INSERT INTO enrollments(studentId, courseId) VALUES(3,5);
-INSERT INTO enrollments(studentId, courseId) VALUES(2,7);
-INSERT INTO enrollments(studentId, courseId) VALUES(4,3);
-INSERT INTO enrollments(studentId, courseId) VALUES(4,6);
-INSERT INTO enrollments(studentId, courseId) VALUES(4,8);
+-- Insert some enrollments
+insert into enrollments(student_id, course_id) values(3,1);
+insert into enrollments(student_id, course_id) values(3,4);
+insert into enrollments(student_id, course_id) values(3,5);
+insert into enrollments(student_id, course_id) values(2,7);
+insert into enrollments(student_id, course_id) values(4,3);
+insert into enrollments(student_id, course_id) values(4,6);
+insert into enrollments(student_id, course_id) values(4,8);
+insert into enrollments(student_id, course_id) values(3336,8);
+insert into enrollments(student_id, course_id) values(3336,1);
+insert into enrollments(student_id, course_id) values(3336,2);
+insert into enrollments(student_id, course_id) values(3336,3);
+insert into enrollments(student_id, course_id) values(3336,4);
+insert into enrollments(student_id, course_id) values(8774,1);
+insert into enrollments(student_id, course_id) values(8774,2);
+insert into enrollments(student_id, course_id) values(8774,3);
+insert into enrollments(student_id, course_id) values(8774,4);
+insert into enrollments(student_id, course_id) values(1396,4);
+insert into enrollments(student_id, course_id) values(1396,5);
+insert into enrollments(student_id, course_id) values(1396,6);
+insert into enrollments(student_id, course_id) values(1396,7);
+insert into enrollments(student_id, course_id) values(1396,8);
 
-SELECT * FROM enrollments;
+-- Query all enrollments
+select * from enrollments;
 
+-- Add semester, enrollment_date, and grade columns to enrollments table
 alter table enrollments
-add column semester VARCHAR(20),
-add column enrollment_date DATE DEFAULT CURRENT_DATE,
-add column grade CHAR(2);
+add column semester varchar(20),
+add column enrollment_date date default current_date,
+add column grade char(2);
 
 
--- rename column studentId to student_id and courseID to course_id
-alter table enrollments
-rename column studentId to student_id;
-
-alter table enrollments
-rename column courseID to course_id;
 
 --  add foreign key constraints
 alter table enrollments
@@ -33,9 +45,7 @@ add constraint fk_enrollment_student
     foreign key(student_id)
     references students(id);
 
-
-select * from courses;
-
+-- add foreign key constraint for course_id
 alter table enrollments
 add constraint fk_enrollment_course
     foreign key(course_id)
