@@ -1,53 +1,53 @@
 -- Create students table
-create table students (
-id serial primary key,
-name varchar(100));
+CREATE TABLE students (
+id SERIAL PRIMARY KEY,
+name VARCHAR(100));
 
 -- Insert some students
-insert into students(name) values('Alice');
-insert into students(name) values('Bob');
-insert into students(name) values('Charlie');
-insert into students(name) values('Diana');
-insert into students(name) values('Eve');
-insert into students(name) values('Frank');
-insert into students(name) values('Grace');
-insert into students(name) values('Nursultan Lukmanov');
+INSERT INTO students(name) VALUES('Alice');
+INSERT INTO students(name) VALUES('Bob');
+INSERT INTO students(name) VALUES('Charlie');
+INSERT INTO students(name) VALUES('Diana');
+INSERT INTO students(name) VALUES('Eve');
+INSERT INTO students(name) VALUES('Frank');
+INSERT INTO students(name) VALUES('Grace');
+INSERT INTO students(name) VALUES('Nursultan Lukmanov');
 
 -- Query all students
-select * from students;
+SELECT * FROM students;
 
 -- Alter table to add age department and email
-alter table students
-add column email varchar(100),
-add column department int;
+ALTER TABLE students
+ADD COLUMN email VARCHAR(100),
+ADD COLUMN department INT;
 
 -- Alter table to add gpa department and email
 
-alter table students
-add column gpa decimal(3,2),
-add column graduation_year int;
+ALTER TABLE students
+ADD COLUMN gpa DECIMAL(3,2),
+ADD COLUMN graduation_year INT;
 
 -- check table students if new columns are added
-select * from students;
+SELECT * FROM students;
 
-update students set department = 1 where name = 'Alice';
-update students set department = 2 where name = 'Bob';
-update students set department = 2 where name = 'Charlie';
-update students set department = 3 where name = 'Diana';
-update students set department = 1 where name = 'Eve';
-update students set department = 3 where name = 'Frank';
-update students set department = 3 where name = 'Grace';
+UPDATE students SET department = 1 WHERE name = 'Alice';
+UPDATE students SET department = 2 WHERE name = 'Bob';
+UPDATE students SET department = 2 WHERE name = 'Charlie';
+UPDATE students SET department = 3 WHERE name = 'Diana';
+UPDATE students SET department = 1 WHERE name = 'Eve';
+UPDATE students SET department = 3 WHERE name = 'Frank';
+UPDATE students SET department = 3 WHERE name = 'Grace';
 
 -- add constraints to email column
-alter table students
-add constraint email_unique unique(email);
+ALTER TABLE students
+ADD CONSTRAINT email_unique UNIQUE(email);
 
 -- rename department column to department_id and add foreign key constraint
-alter table students
-rename column department to department_id;
+ALTER TABLE students
+RENAME COLUMN department TO department_id;
 
 -- add foreign key constraint for department_id
-alter table students
-add constraint fk_student_department
-    foreign key(department_id)
-    references departments(id);
+ALTER TABLE students
+ADD CONSTRAINT fk_student_department
+    FOREIGN KEY(department_id)
+    REFERENCES departments(id);

@@ -1,5 +1,5 @@
 -- Create employees table
-create table employees(
+CREATE TABLE employees(
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
@@ -8,37 +8,37 @@ create table employees(
 );
 
 -- Add foreign key constraint to employees table
-alter table employees
-add constraint fk_employee_department
-    foreign key(department_id)
-    references departments(id);
+ALTER TABLE employees
+ADD CONSTRAINT fk_employee_department
+    FOREIGN KEY(department_id)
+    REFERENCES departments(id);
 
 
 -- Insert some employees
-insert into employees(first_name, last_name, position, department_id)
-            values('John', 'Doe', 'Software Engineer', 1);
-insert into employees(first_name, last_name, position, department_id)
-            values('Sora', 'Nagoyaki', 'Instructor', 2);
-insert into employees(first_name, last_name, position, department_id)
-            values('Bello', 'Smith', 'Instructor', 3);
-insert into employees(first_name, last_name, position, department_id)
-            values('Sara', 'Benethon', 'Instructor', 2);
+INSERT INTO employees(first_name, last_name, position, department_id)
+            VALUES('John', 'Doe', 'Software Engineer', 1);
+INSERT INTO employees(first_name, last_name, position, department_id)
+            VALUES('Sora', 'Nagoyaki', 'Instructor', 2);
+INSERT INTO employees(first_name, last_name, position, department_id)
+            VALUES('Bello', 'Smith', 'Instructor', 3);
+INSERT INTO employees(first_name, last_name, position, department_id)
+            VALUES('Sara', 'Benethon', 'Instructor', 2);
 
 
 -- Query all employees
-select * from employees;
+SELECT * FROM employees;
 
 -- Rename column position to position_id
-alter table employees
-rename column position to position_id;
+ALTER TABLE employees
+RENAME COLUMN position TO position_id;
 
 -- Change position_id column type to integer
-alter table employees
-alter column position_id type integer
-using position_id::integer;
+ALTER TABLE employees
+ALTER COLUMN position_id TYPE INTEGER
+USING position_id::INTEGER;
 
 -- Update employees to set position_id values
-update employees set position_id = 1 where first_name = 'John' and last_name = 'Doe';
-update employees set position_id = 2 where first_name = 'Sora' and last_name = 'Nagoyaki';
-update employees set position_id = 3 where first_name = 'Bello' and last_name = 'Smith';
-update employees set position_id = 4 where first_name = 'Sara' and last_name = 'Benethon';
+UPDATE employees SET position_id = 1 WHERE first_name = 'John' AND last_name = 'Doe';
+UPDATE employees SET position_id = 2 WHERE first_name = 'Sora' AND last_name = 'Nagoyaki';
+UPDATE employees SET position_id = 3 WHERE first_name = 'Bello' AND last_name = 'Smith';
+UPDATE employees SET position_id = 4 WHERE first_name = 'Sara' AND last_name = 'Benethon';

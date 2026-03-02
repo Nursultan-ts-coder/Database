@@ -1,1 +1,1 @@
-create database university;
+CREATE DATABASE university;

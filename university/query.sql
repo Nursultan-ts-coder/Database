@@ -1,8 +1,8 @@
 -- Query students with name 'Grace'
-select * from students where name = 'Grace';
+SELECT * FROM students WHERE name = 'Grace';
 
 -- Query all students ordered by name
-select * from students order by name;
+SELECT * FROM students ORDER BY name;
 
 -- Query first 3 students ordered by name
-select * from students order by name limit 3;
+SELECT * FROM students ORDER BY name LIMIT 3;

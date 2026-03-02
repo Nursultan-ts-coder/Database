@@ -3,28 +3,28 @@
 
 -- List all the courses with number of enrollments
 
-select name, (select count(e.id) as number_of_enrollments from enrollments e where  e.course_id = c.id  ) from courses c order by number_of_enrollments DESC;
+SELECT name, (SELECT COUNT(e.id) AS number_of_enrollments FROM enrollments e WHERE  e.course_id = c.id  ) FROM courses c ORDER BY number_of_enrollments DESC;
 
 -- Rewrite query above using left joints
 
-select c.name as course, count(e.id) as count
-from courses c
-right join enrollments e on e.course_id = c.id  
-group by c.name
-order by count desc;
+SELECT c.name AS course, COUNT(e.id) AS count
+FROM courses c
+RIGHT JOIN enrollments e ON e.course_id = c.id  
+GROUP BY c.name
+ORDER BY count DESC;
 
 -- Subqueries with from 
 -- List students who has mor than 12 credits
 
-select student, total_credits from
- (select s.name as student, sum(c.credits) as total_credits
- from enrollments e
- join students s on e.student_id = s.id
- join courses c on  e.course_id = c.id  
- group by s.name
- order by total_credits DESC NULLS LAST
+SELECT student, total_credits FROM
+ (SELECT s.name AS student, SUM(c.credits) AS total_credits
+ FROM enrollments e
+ JOIN students s ON e.student_id = s.id
+ JOIN courses c ON  e.course_id = c.id  
+ GROUP BY s.name
+ ORDER BY total_credits DESC NULLS LAST
 )
-where total_credits >= 12
+WHERE total_credits >= 12
 
 
 -- List all students with their total credits
@@ -32,7 +32,7 @@ where total_credits >= 12
 SELECT 
     s.name AS student, 
     COALESCE((
-    SELECT sum(c.credits)
+    SELECT SUM(c.credits)
         FROM enrollments e
         JOIN courses c ON e.course_id = c.id
         WHERE e.student_id = s.id
@@ -41,7 +41,7 @@ FROM students s
 ORDER BY total_credits DESC NULLS LAST;
 
 -- 2. Approach
-SELECT s.name AS student, COALESCE(sum(c.credits), 0) AS total_credits
+SELECT s.name AS student, COALESCE(SUM(c.credits), 0) AS total_credits
         FROM students s
         LEFT JOIN enrollments e ON e.student_id = s.id
         LEFT JOIN courses c ON e.course_id = c.id
@@ -54,7 +54,7 @@ SELECT s.name AS student, COALESCE(sum(c.credits), 0) AS total_credits
 
 WITH cte_professors AS (
     SELECT first_name, last_name,
-    (SELECT name FROM positions p where p.id = e.position_id) AS position,
+    (SELECT name FROM positions p WHERE p.id = e.position_id) AS position,
     (SELECT name FROM departments d WHERE d.id = e.department_id ) AS department
     FROM employees e
     WHERE e.position_id IN (SELECT id FROM positions WHERE name = 'Professor' )

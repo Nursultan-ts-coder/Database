@@ -1,11 +1,13 @@
 # Database Lab Sessions
 
-This repository contains course materials and SQL practice work for the AUCA Database course.
-
 **Course:** Database (COM-213)  
 **University:** American University of Central Asia (AUCA)  
 **Semester:** Spring 2026  
 **Student:** Nursultan Lukmanov (ID: 14467)
+
+I am fully conversant with the AUCA syllabus requirements and policies. I accept complete accountability for meeting all course deadlines and deliverables. Nursultan Lukmanov
+
+This repository contains course materials and SQL practice work for the AUCA Database course.
 
 ## About This Repository
 
@@ -25,31 +27,79 @@ Do not use these scripts against systems you do not own or do not have permissio
 
 ## Lab Overview
 
-| Lab    | Topic                               | Key Files                                                     |
-| ------ | ----------------------------------- | ------------------------------------------------------------- |
-| Lab 5  | Database Management                 | `labs/lab-5/index.md`, `labs/lab-5/create-database.sql`       |
-| Lab 6  | Tables, Data Types, and Constraints | `labs/lab-6/README`, `labs/lab-6/tables.sql`                  |
-| Lab 7  | Primary Keys                        | `labs/lab-7/index.md`, `labs/lab-7/primary-keys.sql`          |
-| Lab 8  | Foreign Keys & Relationships        | `labs/lab-8/index.md`                                         |
-| Lab 9  | Database Design Basics              | `labs/lab-9/index.md`                                         |
-| Lab 10 | Viewing Database & Table Structure  | `labs/lab-10/index.md`                                        |
-| Lab 11 | Basic Data Operations               | `labs/lab-11/index.md`, `labs/lab-11/bulk-update.sql`         |
-| Lab 12 | Querying Data                       | `labs/lab-12/index.md`, `labs/lab-12/querying-data.sql`       |
-| Lab 13 | Aggregate Functions                 | `labs/lab-13/index.md`, `labs/lab-13/aggregate-functions.sql` |
-| Lab 14 | Joining Tables                      | `labs/lab-14/index.md`, `labs/lab-14/joins.sql`               |
-| Lab 15 | Advanced Querying                   | `labs/lab-15/index.md`, `labs/lab-15/advanced-querying.sql`   |
-| Lab 16 | Transactions & ACID                 | `labs/lab-16/index.md`, `labs/lab-16/transactions.sql`        |
-| Lab 17 | Import/Export & Backup              | `labs/lab-17/index.md`                                        |
+| Lab    | Topic                                | Key Files                                     |
+| ------ | ------------------------------------ | --------------------------------------------- |
+| Lab 1  | Introduction to Relational Databases | `labs/lab-1/index.md`, `labs/lab-1/lab.sql`   |
+| Lab 2  | Installing PostgreSQL and pgAdmin    | `labs/lab-2/index.md`, `labs/lab-2/lab.sql`   |
+| Lab 3  | Basic psql Commands                  | `labs/lab-3/index.md`, `labs/lab-3/lab.sql`   |
+| Lab 4  | First SQL Query                      | `labs/lab-4/index.md`, `labs/lab-4/lab.sql`   |
+| Lab 5  | Databases                            | `labs/lab-5/index.md`, `labs/lab-5/lab.sql`   |
+| Lab 6  | Tables, Data Types and Constraints   | `labs/lab-6/index.md`, `labs/lab-6/lab.sql`   |
+| Lab 7  | Primary Keys                         | `labs/lab-7/index.md`, `labs/lab-7/lab.sql`   |
+| Lab 8  | Foreign Keys and Relationships       | `labs/lab-8/index.md`, `labs/lab-8/lab.sql`   |
+| Lab 9  | Database Design Basics               | `labs/lab-9/index.md`, `labs/lab-9/lab.sql`   |
+| Lab 10 | Viewing Database and Table Structure | `labs/lab-10/index.md`, `labs/lab-10/lab.sql` |
+| Lab 11 | Basic Data Operations                | `labs/lab-11/index.md`, `labs/lab-11/lab.sql` |
+| Lab 12 | Querying Data                        | `labs/lab-12/index.md`, `labs/lab-12/lab.sql` |
+| Lab 13 | Aggregate Functions                  | `labs/lab-13/index.md`, `labs/lab-13/lab.sql` |
+| Lab 14 | Joining Tables                       | `labs/lab-14/index.md`, `labs/lab-14/lab.sql` |
+| Lab 15 | Advanced Querying                    | `labs/lab-15/index.md`, `labs/lab-15/lab.sql` |
+| Lab 16 | Transactions and ACID properties     | `labs/lab-16/index.md`, `labs/lab-16/lab.sql` |
+| Lab 17 | Data Import/Export and Backup        | `labs/lab-17/index.md`, `labs/lab-17/lab.sql` |
 
-## University Dataset Files
+## Current Folder Structure
 
-Core schema/data files for the university example database are located in this folder:
+```text
+Database/
+├── cheat sheet/
+│   └── SQL-Cheat-Sheet-PDF.pdf
+├── data/
+│   └── students.csv
+├── labs/
+│   ├── lab-1/ ... lab-17/
+│   │   ├── *.docx
+│   │   ├── index.md
+│   │   └── lab.sql
+├── scripts/
+│   ├── index.md
+│   └── read_docx.py
+└── university/
+	├── README
+	├── ER_diagram.png
+	├── university.sql
+	├── departments.sql
+	├── positions.sql
+	├── employees.sql
+	├── students.sql
+	├── courses.sql
+	├── enrollments.sql
+	└── query.sql
+```
 
-- `university/university.sql`
-- `university/departments.sql`
-- `university/positions.sql`
-- `university/employees.sql`
-- `university/courses.sql`
-- `university/students.sql`
-- `university/enrollments.sql`
-- `university/query.sql`
+## Labs (Exact Naming)
+
+Each lab folder uses this naming pattern:
+
+- `labs/lab-N/index.md`
+- `labs/lab-N/lab.sql`
+- `labs/lab-N/<lab-topic>.docx`
+
+Lab folders present in the repository:
+
+- `lab-1`, `lab-2`, `lab-3`, `lab-4`, `lab-5`, `lab-6`, `lab-7`, `lab-8`, `lab-9`
+- `lab-10`, `lab-11`, `lab-12`, `lab-13`, `lab-14`, `lab-15`, `lab-16`, `lab-17`
+
+## University SQL Files
+
+Files in this folder:
+
+- `university.sql`
+- `departments.sql`
+- `positions.sql`
+- `employees.sql`
+- `students.sql`
+- `courses.sql`
+- `enrollments.sql`
+- `query.sql`
+
+## Note
