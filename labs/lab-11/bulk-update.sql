@@ -29,7 +29,7 @@ select * from students;
 
 -- Basic data operations;
 copy students(first_name, last_name, birth_date)
-from '/path/to/students.csv'
+from 'data/students.csv'
 delimiter ','
 csv header;
 

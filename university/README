@@ -1,8 +1,55 @@
-# Postgresql basic commands
+# Database Lab Sessions
 
-- Create a database
+This repository contains course materials and SQL practice work for the AUCA Database course.
 
-```sql
-CREATE DATABASE courses;
-```
+**Course:** Database (COM-213)  
+**University:** American University of Central Asia (AUCA)  
+**Semester:** Spring 2026  
+**Student:** Nursultan Lukmanov (ID: 14467)
 
+## About This Repository
+
+The project is focused on relational database fundamentals and PostgreSQL practice, including:
+
+- database setup and schema creation
+- table design, keys, and constraints
+- CRUD operations and querying
+- joins, aggregate functions, and advanced SQL
+- transactions, import/export, and backup workflows
+
+## Academic Disclaimer
+
+All materials in this repository are prepared for coursework and learning purposes. SQL scripts should be executed only in your own local or authorized academic environments.
+
+Do not use these scripts against systems you do not own or do not have permission to access.
+
+## Lab Overview
+
+| Lab    | Topic                               | Key Files                                                     |
+| ------ | ----------------------------------- | ------------------------------------------------------------- |
+| Lab 5  | Database Management                 | `labs/lab-5/index.md`, `labs/lab-5/create-database.sql`       |
+| Lab 6  | Tables, Data Types, and Constraints | `labs/lab-6/README`, `labs/lab-6/tables.sql`                  |
+| Lab 7  | Primary Keys                        | `labs/lab-7/index.md`, `labs/lab-7/primary-keys.sql`          |
+| Lab 8  | Foreign Keys & Relationships        | `labs/lab-8/index.md`                                         |
+| Lab 9  | Database Design Basics              | `labs/lab-9/index.md`                                         |
+| Lab 10 | Viewing Database & Table Structure  | `labs/lab-10/index.md`                                        |
+| Lab 11 | Basic Data Operations               | `labs/lab-11/index.md`, `labs/lab-11/bulk-update.sql`         |
+| Lab 12 | Querying Data                       | `labs/lab-12/index.md`, `labs/lab-12/querying-data.sql`       |
+| Lab 13 | Aggregate Functions                 | `labs/lab-13/index.md`, `labs/lab-13/aggregate-functions.sql` |
+| Lab 14 | Joining Tables                      | `labs/lab-14/index.md`, `labs/lab-14/joins.sql`               |
+| Lab 15 | Advanced Querying                   | `labs/lab-15/index.md`, `labs/lab-15/advanced-querying.sql`   |
+| Lab 16 | Transactions & ACID                 | `labs/lab-16/index.md`, `labs/lab-16/transactions.sql`        |
+| Lab 17 | Import/Export & Backup              | `labs/lab-17/index.md`                                        |
+
+## University Dataset Files
+
+Core schema/data files for the university example database are located in this folder:
+
+- `university/university.sql`
+- `university/departments.sql`
+- `university/positions.sql`
+- `university/employees.sql`
+- `university/courses.sql`
+- `university/students.sql`
+- `university/enrollments.sql`
+- `university/query.sql`

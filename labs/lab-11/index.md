@@ -90,7 +90,7 @@ Import/export CSV efficiently.
 
 ```sql
 COPY Students(first_name, last_name, birth_date)
-FROM '/path/to/students.csv'
+FROM 'data/students.csv'
 DELIMITER ','
 CSV HEADER;
 ```
