@@ -51,29 +51,30 @@ Do not use these scripts against systems you do not own or do not have permissio
 
 ```text
 Database/
+├── README
+├── .git/
+├── .venv/
 ├── cheat sheet/
 │   └── SQL-Cheat-Sheet-PDF.pdf
 ├── data/
 │   └── students.csv
 ├── labs/
-│   ├── lab-1/ ... lab-17/
-│   │   ├── *.docx
-│   │   ├── index.md
-│   │   └── lab.sql
-├── scripts/
-│   ├── index.md
-│   └── read_docx.py
-└── university/
-	├── README
-	├── ER_diagram.png
-	├── university.sql
-	├── departments.sql
-	├── positions.sql
-	├── employees.sql
-	├── students.sql
-	├── courses.sql
-	├── enrollments.sql
-	└── query.sql
+│   ├── lab-1/ through lab-17/
+│   │   ├── *.docx (Lab materials)
+│   │   ├── index.md (Lab documentation)
+│   │   └── lab.sql (SQL exercises)
+│   ├── ER_diagram.png
+│   ├── university.sql
+│   ├── departments.sql
+│   ├── positions.sql
+│   ├── employees.sql
+│   ├── students.sql
+│   ├── courses.sql
+│   ├── enrollments.sql
+│   └── query.sql
+└── scripts/
+    ├── index.md
+    └── read_docx.py
 ```
 
 ## Labs (Exact Naming)
@@ -89,17 +90,18 @@ Lab folders present in the repository:
 - `lab-1`, `lab-2`, `lab-3`, `lab-4`, `lab-5`, `lab-6`, `lab-7`, `lab-8`, `lab-9`
 - `lab-10`, `lab-11`, `lab-12`, `lab-13`, `lab-14`, `lab-15`, `lab-16`, `lab-17`
 
-## University SQL Files
+## University Example Schema Files
 
-Files in this folder:
+These database schema and sample query files are located in `labs/`:
 
-- `university.sql`
-- `departments.sql`
-- `positions.sql`
-- `employees.sql`
-- `students.sql`
-- `courses.sql`
-- `enrollments.sql`
-- `query.sql`
+- `labs/university.sql` - Create university database
+- `labs/departments.sql` - Department table definitions
+- `labs/positions.sql` - Position table definitions
+- `labs/employees.sql` - Employee table definitions
+- `labs/students.sql` - Student table definitions
+- `labs/courses.sql` - Course table definitions
+- `labs/enrollments.sql` - Enrollment table definitions
+- `labs/query.sql` - Sample query examples
+- `labs/ER_diagram.png` - Entity-relationship diagram
 
 ## Note
